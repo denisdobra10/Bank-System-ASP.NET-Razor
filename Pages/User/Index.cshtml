@@ -1,0 +1,68 @@
+﻿@page
+@model BankSystem.Pages.User.IndexModel
+@{
+}
+
+
+@if(Model.account == null)
+{
+    // Display error message
+    <p>Please <a href="/Login/SignIn">login</a> first!</p>
+}
+else
+{
+<div class="row">
+    <div class="col-6">
+
+        <div class="text-center">
+            <div class="card">
+
+
+                <div class="card-header">
+                    <h5>ACCOUNT INFO</h5>
+                    <hr />
+
+                    <h3 class="alert-heading">My Account</h3>
+
+                    <h1>Name: @Model.account.Name</h1>
+                    <h1>Email: @Model.account.Email</h1>
+
+                    <p>Card Number: @Model.account.CardNumber</p>
+                    <p>PIN: @Model.account.Pin</p>
+                </div>
+
+
+                <div class="card-body">
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="col p-2 m-2">
+                                    <a href="/User/Balance" class="btn btn-primary btn-lg">Check Balance</a>
+                                </div>
+                                <div class="col p-2 m-2">
+                                    <a href="/User/Deposit" class="btn btn-primary btn-lg">Deposit</a>
+                                </div>
+                                <div class="w-100"></div>
+                                <div class="col p-2 m-2">
+                                    <a href="/User/Withdraw" class="btn btn-primary btn-lg">Withdraw</a>
+                                </div>
+                                <div class="col p-2 m-2">
+                                   <a href="/User/Transfer" class="btn btn-primary btn-lg">Transfer</a>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+
