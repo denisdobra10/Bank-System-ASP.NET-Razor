@@ -4,12 +4,12 @@
 
 namespace BankSystem.Migrations
 {
-    public partial class AccountDbUpdate3 : Migration
+    public partial class AccountTableUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Name",
+                name: "Gender",
                 table: "Account",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -19,7 +19,7 @@ namespace BankSystem.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Name",
+                name: "Gender",
                 table: "Account");
         }
     }

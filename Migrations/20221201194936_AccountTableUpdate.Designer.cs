@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BankSystem.Migrations
 {
     [DbContext(typeof(BankSystemContext))]
-    [Migration("20221201124100_AccountDbUpdated")]
-    partial class AccountDbUpdated
+    [Migration("20221201194936_AccountTableUpdate")]
+    partial class AccountTableUpdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,6 +43,14 @@ namespace BankSystem.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

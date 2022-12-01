@@ -53,6 +53,7 @@ namespace BankSystem.Pages.Login
                 Username = account.Username,
                 Password = account.Password,
                 Name = account.Name,
+                Gender = account.Gender,
                 SecretQuestion = account.SecretQuestion,
                 Email = account.Email,
                 CardNumber = DatabaseHelper.GenerateCardNumber(_context),

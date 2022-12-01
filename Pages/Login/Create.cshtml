@@ -29,6 +29,14 @@
                 <span asp-validation-for="account.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="account.Gender" class="control-label">Gender</label>
+                <select asp-for="account.Gender">
+                    <option value="Male">Male</option>
+                    <option value="Male">Female</option>
+                </select>
+                <span asp-validation-for="account.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="account.Email" class="control-label"></label>
                 <input type="email" asp-for="account.Email" class="form-control" required/>
                 <span asp-validation-for="account.Email" class="text-danger"></span>

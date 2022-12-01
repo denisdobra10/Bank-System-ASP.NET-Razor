@@ -29,6 +29,9 @@
                 @Html.DisplayNameFor(model => model.Account[0].Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Account[0].Gender)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Account[0].SecretQuestion)
             </th>
             <th>
@@ -60,6 +63,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SecretQuestion)
