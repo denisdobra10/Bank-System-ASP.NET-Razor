@@ -62,7 +62,7 @@ namespace BankSystem.Models
             if (!UserExists(_context, username).Result)
                 return null;
 
-            if(GetUserPassword(_context, username).Result.Equals(password))
+            if(GetUserPassword(_context, username).Result.Equals(Encryptor.MD5Hash(password)))
             {
                 return GetUserData(_context, username).Result;
             }

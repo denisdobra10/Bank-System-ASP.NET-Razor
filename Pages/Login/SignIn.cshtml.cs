@@ -37,7 +37,7 @@ namespace BankSystem.Pages.Login
             if (logInAccount != null)
             {
                 Account.LoggedInAccount = logInAccount;
-                return RedirectToPage("/Index");
+                return RedirectToPage("/User/Index");
             }
 
             Account.LoggedInAccount = null;

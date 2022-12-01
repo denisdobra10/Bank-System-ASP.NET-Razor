@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BankSystem.Data;
 using BankSystem.Models;
+using System.Security.Cryptography;
 
 namespace BankSystem.Pages.Login
 {
@@ -51,7 +52,7 @@ namespace BankSystem.Pages.Login
             {
                 Id = account.Id,
                 Username = account.Username,
-                Password = account.Password,
+                Password = Encryptor.MD5Hash(account.Password ),
                 Name = account.Name,
                 Gender = account.Gender,
                 SecretQuestion = account.SecretQuestion,
