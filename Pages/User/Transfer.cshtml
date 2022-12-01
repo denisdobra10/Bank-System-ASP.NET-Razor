@@ -1,0 +1,103 @@
+﻿@page
+@model BankSystem.Pages.User.TransferModel
+@using BankSystem.Models
+
+@{
+    ViewData["Title"] = "Transfer";
+}
+
+<h1>Transfer</h1>
+
+<h4>Transaction</h4>
+<hr />
+
+
+@if (Account.LoggedInAccount == null)
+{
+    // Display error message
+        <p>Please <a href="/Login/SignIn">login</a> first!</p>
+}
+else
+{
+<div class="row">
+    <div class="col-md-4">
+
+        <div class="text-center m-2 p-2">
+            <h1>Your balance: @Account.LoggedInAccount.Balance</h1>
+            <hr>
+        </div>
+
+
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="transaction.FromUserName" class="control-label">Sender Name</label>
+                <input asp-for="transaction.FromUserName" class="form-control" value="@Account.LoggedInAccount.Name" readonly/>
+                <span asp-validation-for="transaction.FromUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="transaction.FromUserCardNumber" class="control-label">Sender Card Number</label>
+                <input asp-for="transaction.FromUserCardNumber" class="form-control" value="@Account.LoggedInAccount.CardNumber" readonly/>
+                <span asp-validation-for="transaction.FromUserCardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="transaction.ToUserName" class="control-label">Reciever Name</label>
+                <input asp-for="transaction.ToUserName" class="form-control" placeholder="Reciever name" required/>
+                <span asp-validation-for="transaction.ToUserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="transaction.ToUserCardNumber" class="control-label">Reciever Card Number</label>
+                <input asp-for="transaction.ToUserCardNumber" class="form-control" placeholder="Beneficiary card number" required/>
+                <span asp-validation-for="transaction.ToUserCardNumber" class="text-danger"></span>
+            </div>
+            @*            <div class="form-group">
+            <label asp-for="Transaction.Date" class="control-label"></label>
+            <input asp-for="Transaction.Date" class="form-control" />
+            <span asp-validation-for="Transaction.Date" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="transaction.MoneyAmount" class="control-label">Transfer Amount</label>
+                <input type="number" asp-for="transaction.MoneyAmount" class="form-control" required />
+                <span asp-validation-for="transaction.MoneyAmount" class="text-danger"></span>
+            </div>
+            @*<div class="form-group">
+            <label asp-for="Transaction.FromUserInitialBalance" class="control-label"></label>
+            <input asp-for="Transaction.FromUserInitialBalance" class="form-control" />
+            <span asp-validation-for="Transaction.FromUserInitialBalance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Transaction.FromUserAfterBalance" class="control-label"></label>
+            <input asp-for="Transaction.FromUserAfterBalance" class="form-control" />
+            <span asp-validation-for="Transaction.FromUserAfterBalance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Transaction.ToUserInitialBalance" class="control-label"></label>
+            <input asp-for="Transaction.ToUserInitialBalance" class="form-control" />
+            <span asp-validation-for="Transaction.ToUserInitialBalance" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Transaction.ToUserAfterBalance" class="control-label"></label>
+            <input asp-for="Transaction.ToUserAfterBalance" class="form-control" />
+            <span asp-validation-for="Transaction.ToUserAfterBalance" class="text-danger"></span>
+        </div>*@
+            <div class="form-group">
+                <label asp-for="transaction.Details" class="control-label">Transaction Summary</label>
+                <textarea asp-for="transaction.Details" class="form-control"></textarea>
+                <span asp-validation-for="transaction.Details" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send Money" class="btn btn-primary p-1 m-1" />
+            </div>
+        </form>
+    </div>
+</div>
+}
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

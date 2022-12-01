@@ -1,0 +1,24 @@
+﻿@page
+@model BankSystem.Pages.User.TransferStatusModel
+@using BankSystem.Models.Errors
+@{
+}
+
+@if (@HttpContext.Request.Query["id"].Equals("success"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-success">TRANSACTION COMPLETED SUCCESSFULLY</h1>
+    </div>
+}
+else
+{
+    <div class="text-lg-center">
+        <h1 class="text-truncate">TRANSACTION FAILED</h1>
+        <p>Reason: @ErrorHandler.transferErrors[int.Parse(HttpContext.Request.Query["id"])]</p>
+    </div>
+}
+
+
+<div class="text-center">
+    <a href="/User/Index" class="btn-primary btn-lg m-2 p-2">I understand</a>
+</div>

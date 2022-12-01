@@ -10,7 +10,7 @@ namespace BankSystem.Models
         // PUBLIC DATABASE QUERY FUNCTIONS
 
         // METHOD TO CHECK IF CERTAIN ELEMENT DOES EXISTS IN A SPECIFIC TABLE
-        public static async Task<bool> CardNumberExists(BankSystemContext _context, string cardNumber)
+        private static async Task<bool> CardNumberExists(BankSystemContext _context, string cardNumber)
         {
             var account = await _context.Account.FirstOrDefaultAsync(m => m.CardNumber == cardNumber);
 
@@ -20,7 +20,7 @@ namespace BankSystem.Models
             return true;
         }
 
-        public static async Task<bool> UserExists(BankSystemContext _context, string username)
+        private static async Task<bool> UserExists(BankSystemContext _context, string username)
         {
             var account = await _context.Account.FirstOrDefaultAsync(m => m.Username == username);
 
@@ -30,7 +30,7 @@ namespace BankSystem.Models
             return true;
         }
 
-        public static async Task<string> GetUserPassword(BankSystemContext _context, string username)
+        private static async Task<string> GetUserPassword(BankSystemContext _context, string username)
         {
             var pass = await _context.Account.FirstOrDefaultAsync(c => c.Username == username);
 
@@ -40,10 +40,19 @@ namespace BankSystem.Models
             return pass.Password;
         }
 
-        public static async Task<Account> GetUserData(BankSystemContext _context, string username)
+        private static async Task<Account> GetUserData(BankSystemContext _context, string username)
         {
             return await _context.Account.FirstOrDefaultAsync(m => m.Username == username);
+        }
 
+        private static async Task<bool> NameExists(BankSystemContext _context, string name)
+        {
+            var account = await _context.Account.FirstOrDefaultAsync(m => m.Name == name);
+
+            if (account == null)
+                return false;
+
+            return true;
         }
 
 
@@ -53,7 +62,7 @@ namespace BankSystem.Models
 
         // USEFUL FUNCTIONS WITH INDIRECT ACTION TO DATABASE
 
-        // LOGIN FUNCTION
+
         public static Account Login(BankSystemContext _context, string username, string password)
         {
             if (username == null || password == null)
@@ -105,5 +114,24 @@ namespace BankSystem.Models
             return pin;
         }
 
+        public static Account AccountInfo(BankSystemContext _context, string userName)
+        {
+            return GetUserData(_context, userName).Result;
+        }
+
+        public static bool SearchAccountDb(BankSystemContext _context, string userName)
+        {
+            return UserExists(_context, userName).Result;
+        }
+
+        public static bool FindCardNumber(BankSystemContext _context, string cardNumber)
+        {
+            return CardNumberExists(_context, cardNumber).Result;
+        }
+
+        public static bool FindName(BankSystemContext _context, string name)
+        {
+            return NameExists(_context, name).Result;
+        }
     }
 }
