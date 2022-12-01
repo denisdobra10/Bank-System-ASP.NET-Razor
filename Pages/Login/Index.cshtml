@@ -1,11 +1,17 @@
 ﻿@page
 @model BankSystem.Pages.Login.IndexModel
+@using BankSystem.Models
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Login</h1>
+
+@if(Account.LoggedInAccount != null)
+{
+    <p>@Account.LoggedInAccount.Username YOU ARE LOGGED IN!!!</p>
+}
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -20,7 +26,25 @@
                 @Html.DisplayNameFor(model => model.Account[0].Password)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Account[0].Name)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Account[0].SecretQuestion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].CardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Pin)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].Balance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Account[0].AccountCreatedData)
             </th>
             <th></th>
         </tr>
@@ -35,7 +59,25 @@
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.SecretQuestion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pin)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccountCreatedData)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |

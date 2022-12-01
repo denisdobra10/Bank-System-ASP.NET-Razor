@@ -25,21 +25,41 @@ namespace BankSystem.Pages.Login
         }
 
         [BindProperty]
-        public Account Account { get; set; }
+        public Account account { get; set; }
         
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
-            {
-                return Page();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    return Page();
+            //}
 
-            _context.Account.Add(Account);
+            _context.Account.Add(GenerateAccount());
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+
+        }
+
+
+
+        private Account GenerateAccount()
+        {
+            return new Account()
+            {
+                Id = account.Id,
+                Username = account.Username,
+                Password = account.Password,
+                Name = account.Name,
+                SecretQuestion = account.SecretQuestion,
+                Email = account.Email,
+                CardNumber = DatabaseHelper.GenerateCardNumber(_context),
+                Pin = DatabaseHelper.GeneratePin(),
+                Balance = 0.00f,
+                AccountCreatedData = DateTime.Today
+            };
         }
     }
 }

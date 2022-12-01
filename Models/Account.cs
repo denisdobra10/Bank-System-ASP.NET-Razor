@@ -4,16 +4,27 @@ namespace BankSystem.Models
 {
     public class Account
     {
-        [Required]
+        public static Account LoggedInAccount { get; set; }
+
+
         public int Id { get; set; }
 
-        [Required]
         public string Username { get; set; }
 
-        [Required]
         public string Password { get; set; }
 
-        [Required]
+        public string Name { get; set; }
+
         public string SecretQuestion { get; set; }
+
+        public string Email { get; set; }
+
+        public string CardNumber { get; set; }
+
+        public string Pin { get; set; }
+
+        public float Balance { get; set; }
+
+        public DateTime AccountCreatedData { get; set; }
     }
 }

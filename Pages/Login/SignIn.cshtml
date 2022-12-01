@@ -1,0 +1,43 @@
+﻿@page
+@model BankSystem.Pages.Login.LoginModel
+@{
+    ViewData["Title"] = "Login";
+}
+ 
+
+<div class="text-center">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+      <!-- Username input -->
+      <div class="input-group-text">
+        <input asp-for="credential.Username" type="text" class="form-control" placeholder="Username"/>
+        <span class="text-danger" asp-validation-for="credential.Username"></span>
+      </div>
+
+      <!-- Password input -->
+      <div class="input-group-text">
+        <input asp-for="credential.Password" type="password" class="form-control" placeholder="Password"/>
+        <span class="text-danger" asp-validation-for="credential.Password"></span>
+      </div>
+      
+      <!-- Forgot password link -->
+      <div class="row mb-4">
+        <div class="col">
+          <a href="#!">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <input type="submit" value="Create" class="btn btn-primary" />
+
+      <!-- Register button -->
+      <div class="text-center">
+        <p>Not a member? <a href="#!">Register</a></p>
+      </div>
+    </form>
+
+    @if(ViewData["credentialsError"] != null)
+    {
+        @ViewData["credentialsError"]
+    }
+</div>

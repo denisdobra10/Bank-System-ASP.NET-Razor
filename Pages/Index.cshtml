@@ -1,10 +1,20 @@
 ﻿@page
 @model IndexModel
+@using BankSystem.Models
+
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Bank System";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@if(Account.LoggedInAccount == null)
+{
+    <div class="text-center">
+        <h5>Bank System made in ASP.NET Core</h5>
+        <p><a href="/Login">Click here to login</a></p>
+    </div>
+}
+else
+{
+    <p>Welcome @Account.LoggedInAccount.Name</p>
+}
+
