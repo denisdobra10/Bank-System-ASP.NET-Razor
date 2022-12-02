@@ -17,5 +17,16 @@
 
         // END TRANSACTION ERRORS
 
+
+        // SIGN UP ACCOUNT ERRORS
+
+        public static Dictionary<int, string> signupErrors = new Dictionary<int, string>()
+        {
+            {201, "THERE IS ALREADY AN ACCOUNT USING THAT USERNAME" },
+            {202, "EMAIL ADDRESS IS ALREADY USED" }
+        };
+
+        // END SIGN UP ACCOUNT ERRORS
+
     }
 }

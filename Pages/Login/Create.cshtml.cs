@@ -32,11 +32,16 @@ namespace BankSystem.Pages.Login
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return Page();
-            //}
 
+            // Get the validation status code
+            int result = ValidNewAccount(account.Username, account.Email);
+
+            if (result != 0)
+            {
+                return RedirectToPage("/Login/Status", new {id = result});
+            }
+
+            // Create account
             _context.Account.Add(GenerateAccount());
             await _context.SaveChangesAsync();
 
@@ -44,6 +49,20 @@ namespace BankSystem.Pages.Login
 
         }
 
+
+
+        private int ValidNewAccount(string userName, string email)
+        {
+            if (DatabaseHelper.UserExists(_context, account.Username))
+                return 201;
+
+            if (DatabaseHelper.EmailExists(_context, account.Email))
+                return 202;
+
+
+            return 0;
+            
+        }
 
 
         private Account GenerateAccount()

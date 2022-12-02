@@ -139,6 +139,11 @@ namespace BankSystem.Models
             return _context.Account.Where(a => a.Username == userName).Any();
         }
 
+        public static bool EmailExists(BankSystemContext _context, string email)
+        {
+            return _context.Account.Where(m => m.Email.Equals(email)).Any();
+        }
+
         public static bool SearchAccountDb(BankSystemContext _context, string userName)
         {
             return _context.Account.Where(a => a.CardNumber.Equals(userName)).Any();
@@ -155,6 +160,12 @@ namespace BankSystem.Models
         {
             return _context.Account.Where(a => a.Name == name).Any();
             //return NameExists(_context, name).Result;
+        }
+
+
+        public static List<Transaction> GetTransactionsByCardNumber(BankSystemContext _context, string cardNumber)
+        {
+            return _context.Transaction.Where(a => a.FromUserCardNumber == cardNumber).ToList();
         }
     }
 }

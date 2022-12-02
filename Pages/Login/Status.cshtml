@@ -1,0 +1,17 @@
+﻿@page
+@model BankSystem.Pages.Login.StatusModel
+@using BankSystem.Models.Errors
+@{
+}
+
+
+<div class="text-center">
+    <h1 class="alert-danger">SIGN UP FAILED</h1>
+    <p>Reason: @ErrorHandler.signupErrors[int.Parse(HttpContext.Request.Query["id"])]</p>
+</div>
+
+
+<div class="text-center">
+    <a href="/Login/Create" class="btn-secondary btn-lg m-2 p-2">GO BACK</a>
+</div>
+
