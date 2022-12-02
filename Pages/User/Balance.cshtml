@@ -6,19 +6,19 @@
     ViewData["Title"] = "Balance";
 }
 
-<h5><b>Balance:</b> @Account.LoggedInAccount.Balance </h5>
+<h6 class="bg-dark text-info"><b>Balance:</b> @Account.LoggedInAccount.Balance @Account.Currency</h6>
 
 
 <section class="vh-100" style="background-color: #eee;">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-lg-9 col-xl-7">
+      <div class="mw-100">
         <div class="card rounded-3">
           <div class="card-body p-4">
 
             <h4 class="text-center my-3 pb-3">Transactions</h4>
 
-            <table class="table mb-4">
+            <table class="table mb-3">
               <thead>
                 <tr>
                   <th scope="col">No.</th>
@@ -42,7 +42,7 @@
                         <td>@t.FromUserInitialBalance</td>
                         <td>@t.FromUserAfterBalance</td>
                         <td>@t.Details</td>
-                        <td>@t.Date</td>
+                        <td>@t.Date.ToString("dd//MM//yyyy")</td>
                     </tr>
                 }
               </tbody>
@@ -54,6 +54,9 @@
     </div>
   </div>
 </section>
+
+
+<a href="/User/Index" class="btn-lg btn-info m-2 p-2">Back</a>
 
 
 @section Scripts {

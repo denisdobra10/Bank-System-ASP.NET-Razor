@@ -36,19 +36,24 @@ namespace BankSystem.Models
 
         //    if (pass == null)
         //        return "";
-            
+
         //    return pass.Password;
         //}
 
-        //private static async Task<Account> GetUserData(BankSystemContext _context, string username)
-        //{
-        //    return await _context.Account.FirstOrDefaultAsync(m => m.Username == username);
-        //}
+        public static async Task<Account> GetUserData(BankSystemContext _context, int key)
+        {
+            return await _context.Account.FindAsync(key);
+        }
+
+        public static async Task<Account> GetUserDataByCardNumber(BankSystemContext _context, string cardNumber)
+        {
+           return await _context.Account.FirstAsync(a => a.CardNumber.Equals(cardNumber));
+        }
 
         //private static async Task<bool> NameExists(BankSystemContext _context, string name)
         //{
         //    var account = await _context.Account.FirstOrDefaultAsync(m => m.Name == name);
-            
+
 
         //    if (account == null)
         //        return false;
@@ -56,6 +61,15 @@ namespace BankSystem.Models
         //    return true;
         //}
 
+        public static async void UpdateAccounts(BankSystemContext _context, List<Account> accounts)
+        {
+            foreach(var a in accounts)
+            {
+                _context.Update(a);
+            }
+            
+            await _context.SaveChangesAsync();
+        }
 
         // END DATABASE QUERY FUNCTIONS
 
@@ -116,6 +130,16 @@ namespace BankSystem.Models
             return pin;
         }
 
+        public static async void UpdateLoggedInAccount(BankSystemContext _context)
+        {
+            Account.LoggedInAccount = await _context.Account.FindAsync(Account.LoggedInAccount.Id);
+        }
+
+
+        public static int GetAccountKeyByCardNumber(BankSystemContext _context, string cardNumber)
+        {
+            return _context.Account.Where(a => a.CardNumber.Equals(cardNumber)).First().Id;
+        }
         public static Account GetAccountByUsername(BankSystemContext _context, string userName)
         {
             return _context.Account.Where(a => a.Username.Equals(userName)).First();

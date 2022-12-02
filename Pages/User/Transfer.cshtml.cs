@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BankSystem.Data;
 using BankSystem.Models;
+using Microsoft.Build.Framework;
 
 namespace BankSystem.Pages.User
 {
@@ -14,9 +15,15 @@ namespace BankSystem.Pages.User
     {
         private readonly BankSystem.Data.BankSystemContext _context;
 
+
+        [BindProperty]
+        public Credentials credentials { get; set; }
+
+
         public TransferModel(BankSystem.Data.BankSystemContext context)
         {
             _context = context;
+
         }
 
         public IActionResult OnGet()
@@ -29,6 +36,7 @@ namespace BankSystem.Pages.User
 
 
 
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
@@ -38,7 +46,7 @@ namespace BankSystem.Pages.User
 
             SetupTransaction();
 
-            int response = Transaction.TransferMoney(_context, transaction);
+            int response = Transaction.TransferMoney(_context, transaction, credentials.Pin);
             if (response == 0)
             {
                 _context.Transaction.Add(transaction);
@@ -59,10 +67,17 @@ namespace BankSystem.Pages.User
 
             transaction.FromUserAfterBalance = Account.LoggedInAccount.Balance - transaction.MoneyAmount;
 
-            transaction.ToUserInitialBalance = 999;
+            transaction.ToUserInitialBalance = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.ToUserCardNumber).Result.Balance;
 
-            transaction.ToUserAfterBalance = 111;
+            transaction.ToUserAfterBalance = transaction.ToUserInitialBalance + transaction.MoneyAmount;
 
+        }
+
+
+        public class Credentials
+        {
+            [Required]
+            public string Pin { get; set; }
         }
 
 

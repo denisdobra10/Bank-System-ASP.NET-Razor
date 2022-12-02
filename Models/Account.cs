@@ -6,6 +6,9 @@ namespace BankSystem.Models
     {
         public static Account LoggedInAccount { get; set; }
 
+        public static string Currency = "$";
+
+
 
         public int Id { get; set; }
 

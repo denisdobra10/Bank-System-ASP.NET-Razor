@@ -1,5 +1,6 @@
 ﻿using BankSystem.Data;
 using BankSystem.Models.Errors;
+using Microsoft.EntityFrameworkCore;
 
 namespace BankSystem.Models
 {
@@ -36,7 +37,7 @@ namespace BankSystem.Models
 
 
 
-        public static int TransferMoney(BankSystemContext _context, Transaction transaction)
+        public static int TransferMoney(BankSystemContext _context, Transaction transaction, string pin)
         {
             // Send a response depending on what was happening through the proccess
             /* ERRORS THAT MAY OCCUR:
@@ -46,6 +47,7 @@ namespace BankSystem.Models
              * RECIEVER CARD NUMBER DOESN'T EXIST = 103
              * RECIEVER NAME DOESN'T MATCH THE CARD NUMBER = 104
              * TRANSFER SUMMARY IS TOO SHORT = 105
+             * WRONG PIN = 106
              */
 
 
@@ -64,7 +66,26 @@ namespace BankSystem.Models
             if (transaction.Details.Length < ErrorHandler.MINIMUM_TRANS_DETAILS_CHARS)
                 return 105;
 
+            if (DatabaseHelper.GetAccountByName(_context, transaction.FromUserName).Pin != pin)
+                return 106;
 
+
+
+            // Update balance for sender
+            //Account updatedSender = DatabaseHelper.GetAccountByName(_context, transaction.FromUserName);
+            Account updatedSender = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.FromUserCardNumber).Result;
+            updatedSender.Balance = transaction.FromUserAfterBalance;
+
+            //Account updatedReciever = DatabaseHelper.GetAccountByName(_context, transaction.FromUserCardNumber);
+            Account updatedReciever = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.ToUserCardNumber).Result;
+            updatedReciever.Balance = transaction.ToUserAfterBalance;
+
+            List<Account> updatedAccounts = new List<Account>();
+            updatedAccounts.Add(updatedSender);
+            updatedAccounts.Add(updatedReciever);
+
+            DatabaseHelper.UpdateAccounts(_context, updatedAccounts);
+            DatabaseHelper.UpdateLoggedInAccount(_context);
 
             return 0;
         }
