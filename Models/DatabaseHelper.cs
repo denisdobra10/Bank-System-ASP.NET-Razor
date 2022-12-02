@@ -61,15 +61,7 @@ namespace BankSystem.Models
         //    return true;
         //}
 
-        public static async void UpdateAccounts(BankSystemContext _context, List<Account> accounts)
-        {
-            foreach(var a in accounts)
-            {
-                _context.Update(a);
-            }
-            
-            await _context.SaveChangesAsync();
-        }
+        
 
         // END DATABASE QUERY FUNCTIONS
 
@@ -96,6 +88,13 @@ namespace BankSystem.Models
 
         }
 
+        public static void UpdateAccounts(BankSystemContext _context, List<Account> accounts)
+        {
+            foreach (var a in accounts)
+            {
+                _context.Account.Update(a);
+            }
+        }
 
         // CARD NUMBER GENERATOR METHOD
         public static string GenerateCardNumber(BankSystemContext _context)

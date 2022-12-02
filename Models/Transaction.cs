@@ -71,12 +71,10 @@ namespace BankSystem.Models
 
 
 
-            // Update balance for sender
-            //Account updatedSender = DatabaseHelper.GetAccountByName(_context, transaction.FromUserName);
+            // Update balance for sender and reciever
             Account updatedSender = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.FromUserCardNumber).Result;
             updatedSender.Balance = transaction.FromUserAfterBalance;
 
-            //Account updatedReciever = DatabaseHelper.GetAccountByName(_context, transaction.FromUserCardNumber);
             Account updatedReciever = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.ToUserCardNumber).Result;
             updatedReciever.Balance = transaction.ToUserAfterBalance;
 
