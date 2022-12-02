@@ -36,6 +36,8 @@ namespace BankSystem.Pages.User
                 return Page();
             }
 
+            SetupTransaction();
+
             int response = Transaction.TransferMoney(_context, transaction);
             if (response == 0)
             {
@@ -45,6 +47,22 @@ namespace BankSystem.Pages.User
             }
 
             return RedirectToPage("/User/TransferStatus", new {id = response});
+        }
+
+
+
+        private void SetupTransaction()
+        {
+            transaction.Date = DateTime.Now;
+
+            transaction.FromUserInitialBalance = Account.LoggedInAccount.Balance;
+
+            transaction.FromUserAfterBalance = Account.LoggedInAccount.Balance - transaction.MoneyAmount;
+
+            transaction.ToUserInitialBalance = 999;
+
+            transaction.ToUserAfterBalance = 111;
+
         }
 
 

@@ -58,7 +58,7 @@ namespace BankSystem.Models
             if (!DatabaseHelper.FindCardNumber(_context, transaction.ToUserCardNumber))
                 return 103;
 
-            if (DatabaseHelper.AccountInfo(_context, transaction.ToUserName).CardNumber != transaction.ToUserCardNumber)
+            if (DatabaseHelper.GetAccountByName(_context, transaction.ToUserName).CardNumber != transaction.ToUserCardNumber)
                 return 104;
 
             if (transaction.Details.Length < ErrorHandler.MINIMUM_TRANS_DETAILS_CHARS)
