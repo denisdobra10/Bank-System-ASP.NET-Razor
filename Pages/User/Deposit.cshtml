@@ -36,8 +36,10 @@ else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Re
 
 <h4>Account</h4>
 <hr />
+<h3>BALANCE: <b>@Account.LoggedInAccount.Balance</b></h3>
+
 <div class="row card">
-    <div class="col-md-4">
+    <div class="col-md-4 card-header">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group text-center">
@@ -50,7 +52,7 @@ else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Re
             </div>
         </form>
 
-        <table class="table mb-3">
+        <table class="table mb-3 card-body">
                 <thead>
                 <tr>
                     <th scope="col">Id.</th>
@@ -70,11 +72,13 @@ else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Re
                 </tbody>
             </table>
 
-
+        <div class="card-footer">
+            <a href="/User/Index" class="btn-lg btn-primary m-2 p-2">Back</a>
+        </div>
     </div>
 </div>
 
-<a href="/User/Index" class="btn-lg btn-primary m-2 p-2">Back</a>
+
 }
 
 

@@ -1,0 +1,79 @@
+﻿@page
+@model BankSystem.Pages.User.StatementModel
+
+@{
+    ViewData["Title"] = "Statement";
+}
+
+<h1>Statement</h1>
+
+<h4>Account</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Account.Username" class="control-label"></label>
+                <input asp-for="Account.Username" class="form-control" />
+                <span asp-validation-for="Account.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Password" class="control-label"></label>
+                <input asp-for="Account.Password" class="form-control" />
+                <span asp-validation-for="Account.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Name" class="control-label"></label>
+                <input asp-for="Account.Name" class="form-control" />
+                <span asp-validation-for="Account.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Gender" class="control-label"></label>
+                <input asp-for="Account.Gender" class="form-control" />
+                <span asp-validation-for="Account.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.SecretQuestion" class="control-label"></label>
+                <input asp-for="Account.SecretQuestion" class="form-control" />
+                <span asp-validation-for="Account.SecretQuestion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Email" class="control-label"></label>
+                <input asp-for="Account.Email" class="form-control" />
+                <span asp-validation-for="Account.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.CardNumber" class="control-label"></label>
+                <input asp-for="Account.CardNumber" class="form-control" />
+                <span asp-validation-for="Account.CardNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Pin" class="control-label"></label>
+                <input asp-for="Account.Pin" class="form-control" />
+                <span asp-validation-for="Account.Pin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.Balance" class="control-label"></label>
+                <input asp-for="Account.Balance" class="form-control" />
+                <span asp-validation-for="Account.Balance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Account.AccountCreatedData" class="control-label"></label>
+                <input asp-for="Account.AccountCreatedData" class="form-control" />
+                <span asp-validation-for="Account.AccountCreatedData" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

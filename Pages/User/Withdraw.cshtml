@@ -1,0 +1,95 @@
+﻿@page
+@model BankSystem.Pages.User.WithdrawModel
+@using BankSystem.Models
+@using BankSystem.Models.Errors
+
+@{
+    ViewData["Title"] = "Withdraw";
+}
+
+@if (@HttpContext.Request.Query["id"].Equals("success"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-success">WITHDRAWAL COMPLETED SUCCESSFULLY</h1>
+    </div>
+
+    <a href="/User/Index" class="btn-lg btn-primary m-2 p-2">I understand</a>
+
+}
+else if (@HttpContext.Request.Query["id"].Equals("error1"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-danger">WITHDRAWAL FAILED</h1>
+        <p>Reason: INVALID WITHDRAWAL AMOUNT</p>
+    </div>
+
+    <a href="/User/Withdraw" class="btn-lg btn-primary m-2 p-2">Back</a>
+
+}
+else if (@HttpContext.Request.Query["id"].Equals("error2"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-danger">DEPOSIT FAILED</h1>
+        <p>Reason: NOT ENOUGH MONEY IN ACCOUNT</p>
+    </div>
+
+    <a href="/User/Withdraw" class="btn-lg btn-primary m-2 p-2">Back</a>
+
+}
+else if (Account.LoggedInAccount == null && String.IsNullOrEmpty(@HttpContext.Request.Query["id"]))
+{
+        <p>Please <a href="/Login/SignIn">login</a> first!</p>
+}
+else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Request.Query["id"]))
+{
+<h1>Withdraw Money</h1>
+
+<h4>Account</h4>
+<hr />
+<h3>BALANCE: <b>@Account.LoggedInAccount.Balance</b></h3>
+<div class="row card">
+    <div class="col-md-4 card-header">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group text-center">
+                <label asp-for="withdrawalInfo.amount" class="control-label">How much do you want to withdraw?</label>
+                <input type="number" asp-for="withdrawalInfo.amount" class="form-control" placeholder="100"/>
+                <span asp-validation-for="withdrawalInfo.amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Withdraw" class="btn-lg btn-primary m-2 p-2" />
+            </div>
+        </form>
+
+        <table class="table mb-3 card-body">
+                <thead>
+                <tr>
+                    <th scope="col">Id.</th>
+                    <th scope="col">Suma</th>
+                    <th scope="col">Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var t in Model.withdrawals)
+                {
+                            <tr>
+                                <td>@t.Id</td>
+                                <td>@t.Amount @Account.Currency</td>
+                                <td>@t.Date.ToString("dd//MM//yyyy")</td>
+                            </tr>
+                }
+                </tbody>
+
+            </table>
+
+            <div class="card-footer">
+                <a href="/User/Index" class="btn-lg btn-primary m-3 p-3">Back</a>
+            </div>
+
+    </div>
+
+    
+</div>
+
+
+}

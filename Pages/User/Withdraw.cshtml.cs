@@ -8,44 +8,54 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BankSystem.Data;
 using BankSystem.Models;
+using static BankSystem.Pages.User.DepositModel;
+using System.Security.Principal;
 
 namespace BankSystem.Pages.User
 {
-    public class DepositModel : PageModel
+    public class WithdrawModel : PageModel
     {
         private readonly BankSystem.Data.BankSystemContext _context;
-        public List<Deposit> deposits { get; set; }
 
-        public DepositModel(BankSystem.Data.BankSystemContext context)
+        public List<Withdraw> withdrawals { get; set; }
+
+
+        public WithdrawModel(BankSystem.Data.BankSystemContext context)
         {
             _context = context;
-            deposits = DatabaseHelper.GetDepositsByCardNumber(_context, Account.LoggedInAccount.CardNumber);
+            withdrawals = DatabaseHelper.GetWithdrawalsByCardNumber(_context, Account.LoggedInAccount.CardNumber);
         }
 
-        [BindProperty]
-        public DepositInfo depositInfo { get; set; }
-
 
         [BindProperty]
-        public Account account { get; set; }
+        public WithdrawInfo withdrawalInfo { get; set; }
+
+        [BindProperty]
+        public Account account { get; set; } = default!;
 
 
 
         public async Task<IActionResult> OnPostAsync()
         {
 
-            if(depositInfo.amount < 1)
+            if (withdrawalInfo.amount < 1)
             {
                 // Display error
-                return RedirectToPage("/User/Deposit", new { id = "error" });
+                return RedirectToPage("/User/Withdraw", new { id = "error1" });
+            }
 
+            if (withdrawalInfo.amount > Account.LoggedInAccount.Balance)
+            {
+                // Display error
+                return RedirectToPage("/User/Withdraw", new { id = "error2" });
             }
 
             account = Account.LoggedInAccount;
-            account.Balance += depositInfo.amount;
+            account.Balance -= withdrawalInfo.amount;
 
             _context.Account.Update(account);
-            _context.Deposit.Add(new Models.Deposit() { account = account, Amount = depositInfo.amount, Date = DateTime.Now });
+            _context.Withdraw.Add(new Models.Withdraw() { account = account, Amount = withdrawalInfo.amount, Date = DateTime.Now });
+
 
             try
             {
@@ -63,8 +73,9 @@ namespace BankSystem.Pages.User
                 }
             }
 
-            return RedirectToPage("/User/Deposit", new {id = "success"});
+            return RedirectToPage("/User/Withdraw", new { id = "success" });
         }
+
 
         private bool AccountExists(int id)
         {
@@ -72,7 +83,7 @@ namespace BankSystem.Pages.User
         }
 
 
-        public class DepositInfo
+        public class WithdrawInfo
         {
             public float amount { get; set; }
         }

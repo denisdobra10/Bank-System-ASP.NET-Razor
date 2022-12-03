@@ -19,5 +19,7 @@ namespace BankSystem.Data
         public DbSet<BankSystem.Models.Transaction> Transaction { get; set; }
 
         public DbSet<BankSystem.Models.Deposit> Deposit { get; set; }
+
+        public DbSet<BankSystem.Models.Withdraw> Withdraw { get; set; }
     }
 }

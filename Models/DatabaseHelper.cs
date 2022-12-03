@@ -188,12 +188,25 @@ namespace BankSystem.Models
 
         public static List<Transaction> GetTransactionsByCardNumber(BankSystemContext _context, string cardNumber)
         {
-            return _context.Transaction.Where(a => a.FromUserCardNumber == cardNumber).ToList();
+            List<Transaction> transactions = new List<Transaction>();
+
+            foreach (var t in _context.Transaction.Where(a => a.FromUserCardNumber == cardNumber).ToList())
+                transactions.Add(t);
+
+            foreach (var t in _context.Transaction.Where(a => a.ToUserCardNumber == cardNumber).ToList())
+                transactions.Add(t);
+
+            return transactions;
         }
 
         public static List<Deposit> GetDepositsByCardNumber(BankSystemContext _context, string cardNumber)
         {
             return _context.Deposit.Where(a => a.account.CardNumber == cardNumber).ToList();
+        }
+
+        public static List<Withdraw> GetWithdrawalsByCardNumber(BankSystemContext _context, string cardNumber)
+        {
+            return _context.Withdraw.Where(a => a.account.CardNumber == cardNumber).ToList();
         }
     }
 }
