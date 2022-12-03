@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using BankSystem.Models
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,9 +24,27 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Login/SignIn">Login</a>
-                        </li>
+                        @if(Account.LoggedInAccount == null)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/SignIn">Login</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/User/Index">Bank Account</a>
+                            </li>
+                        }
+                        
+
+                        @if(Account.LoggedInAccount != null && Account.LoggedInAccount.Id == Account.AdministratorID)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-page="/Login/Index">Accounts List</a>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
