@@ -1,0 +1,63 @@
+﻿@page
+@model BankSystem.Pages.User.DepositModel
+@using BankSystem.Models
+@using BankSystem.Models.Errors
+
+@{
+    ViewData["Title"] = "Deposit";
+}
+
+@if (@HttpContext.Request.Query["id"].Equals("success"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-success">Deposit COMPLETED SUCCESSFULLY</h1>
+    </div>
+
+    <a href="/User/Index" class="btn-lg btn-primary m-2 p-2">I understand</a>
+
+}
+else if (@HttpContext.Request.Query["id"].Equals("error"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-danger">DEPOSIT FAILED</h1>
+        <p>Reason: Invalid deposit amount</p>
+    </div>
+
+    <a href="/User/Deposit" class="btn-lg btn-primary m-2 p-2">Back</a>
+
+}
+else if (Account.LoggedInAccount == null && String.IsNullOrEmpty(@HttpContext.Request.Query["id"]))
+{
+        <p>Please <a href="/Login/SignIn">login</a> first!</p>
+}
+else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Request.Query["id"]))
+{
+<h1>Deposit</h1>
+
+<h4>Account</h4>
+<hr />
+<div class="row card">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group text-center">
+                <label asp-for="depositInfo.amount" class="control-label">How much do you want to deposit?</label>
+                <input type="number" asp-for="depositInfo.amount" class="form-control" placeholder="100"/>
+                <span asp-validation-for="depositInfo.amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Deposit" class="btn-lg btn-primary m-2 p-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<a href="/User/Index" class="btn-lg btn-primary m-2 p-2">Back</a>
+}
+
+
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@
