@@ -1,0 +1,53 @@
+﻿@page
+@model BankSystem.Pages.Admin.WithdrawalsModel
+@using BankSystem.Models
+
+@{
+    ViewData["Title"] = "Withdrawals";
+}
+
+
+@if (Account.LoggedInAccount != null && Account.LoggedInAccount.Id == Account.AdministratorID)
+{
+    <h1>Withdrawals</h1>
+    <h1>Total withdrawals: @Model.Withdraw.Count</h1>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Withdraw[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Withdraw[0].Amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Withdraw[0].Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Withdraw) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+}
+else
+{
+    <p>PERMISSION DENIED</p>
+}

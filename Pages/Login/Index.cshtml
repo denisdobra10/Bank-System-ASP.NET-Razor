@@ -8,7 +8,7 @@
 
 <h1>Login</h1>
 
-@if (Account.LoggedInAccount.Id == Account.AdministratorID)
+@if (Account.LoggedInAccount != null && Account.LoggedInAccount.Id == Account.AdministratorID)
 {
     <p>
     <a asp-page="Create">Create New</a>

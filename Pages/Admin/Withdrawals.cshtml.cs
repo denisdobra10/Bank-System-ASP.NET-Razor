@@ -10,22 +10,22 @@ using BankSystem.Models;
 
 namespace BankSystem.Pages.Admin
 {
-    public class TransactionsModel : PageModel
+    public class WithdrawalsModel : PageModel
     {
         private readonly BankSystem.Data.BankSystemContext _context;
 
-        public TransactionsModel(BankSystem.Data.BankSystemContext context)
+        public WithdrawalsModel(BankSystem.Data.BankSystemContext context)
         {
             _context = context;
         }
 
-        public IList<Transaction> Transaction { get;set; } = default!;
+        public IList<Withdraw> Withdraw { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Transaction != null)
+            if (_context.Withdraw != null)
             {
-                Transaction = await _context.Transaction.ToListAsync();
+                Withdraw = await _context.Withdraw.ToListAsync();
             }
         }
     }

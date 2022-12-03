@@ -1,85 +1,100 @@
 ﻿@page
 @model BankSystem.Pages.Admin.TransactionsModel
+@using BankSystem.Models
 
 @{
     ViewData["Title"] = "Transactions";
 }
 
-<h1>Transactions</h1>
+@if(Account.LoggedInAccount != null && Account.LoggedInAccount.Id == Account.AdministratorID)
+{
+    <h1>Transactions</h1>
+    <h1>Total transactions: @Model.Transaction.Count</h1>
 
-<div>
-    <h4>Transaction</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.FromUserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.FromUserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.FromUserCardNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.FromUserCardNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.ToUserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.ToUserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.ToUserCardNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.ToUserCardNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.Date)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.Date)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.MoneyAmount)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.MoneyAmount)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.FromUserInitialBalance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.FromUserInitialBalance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.FromUserAfterBalance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.FromUserAfterBalance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.ToUserInitialBalance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.ToUserInitialBalance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.ToUserAfterBalance)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.ToUserAfterBalance)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Transaction.Details)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Transaction.Details)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Transaction?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
-</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].FromUserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].FromUserCardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].ToUserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].ToUserCardNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].MoneyAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].FromUserInitialBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].FromUserAfterBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].ToUserInitialBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].ToUserAfterBalance)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Transaction[0].Details)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Transaction) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromUserCardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToUserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToUserCardNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoneyAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromUserInitialBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FromUserAfterBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToUserInitialBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToUserAfterBalance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Details)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+}
+else
+{
+    <p>PERMISSION DENIED</p>
+}

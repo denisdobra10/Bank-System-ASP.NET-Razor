@@ -41,11 +41,13 @@ namespace BankSystem.Pages.Login
                 return RedirectToPage("/Login/Status", new {id = result});
             }
 
+            Account generatedAccount = GenerateAccount();
             // Create account
-            _context.Account.Add(GenerateAccount());
+            _context.Account.Add(generatedAccount);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            Account.LoggedInAccount = generatedAccount;
+            return RedirectToPage("/User/Index");
 
         }
 
