@@ -14,14 +14,17 @@ namespace BankSystem.Pages.User
     public class DepositModel : PageModel
     {
         private readonly BankSystem.Data.BankSystemContext _context;
+        public List<Deposit> deposits { get; set; }
 
         public DepositModel(BankSystem.Data.BankSystemContext context)
         {
             _context = context;
+            deposits = DatabaseHelper.GetDepositsByCardNumber(_context, Account.LoggedInAccount.CardNumber);
         }
 
         [BindProperty]
         public DepositInfo depositInfo { get; set; }
+
 
         [BindProperty]
         public Account account { get; set; }
@@ -43,6 +46,7 @@ namespace BankSystem.Pages.User
             account.Balance += depositInfo.amount;
 
             _context.Account.Update(account);
+            _context.Deposit.Add(new Models.Deposit() { account = account, Amount = depositInfo.amount, Date = DateTime.Now });
 
             try
             {

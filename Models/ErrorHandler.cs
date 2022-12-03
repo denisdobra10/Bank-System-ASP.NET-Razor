@@ -13,7 +13,8 @@
             {103, "RECIEVER CARD NUMBER DOESN'T EXIST" },
             {104, "RECIEVER NAME DOESN'T MATCH THE CARD NUMBER" },
             {105, "TRANSFER SUMMARY IS TOO SHORT" },
-            {106, "WRONG PIN" }
+            {106, "WRONG PIN" },
+            {107, "CAN'T TRANSFER MONEY TO THE SAME ACCOUNT" }
         };
 
         // END TRANSACTION ERRORS

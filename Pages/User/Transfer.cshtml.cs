@@ -67,10 +67,16 @@ namespace BankSystem.Pages.User
 
             transaction.FromUserAfterBalance = Account.LoggedInAccount.Balance - transaction.MoneyAmount;
 
-            transaction.ToUserInitialBalance = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.ToUserCardNumber).Result.Balance;
+            try  // Check if account associated with the given card number does exist or not
+            {
+                transaction.ToUserInitialBalance = DatabaseHelper.GetUserDataByCardNumber(_context, transaction.ToUserCardNumber).Result.Balance;
+            }
+            catch
+            {
+                transaction.ToUserInitialBalance = -1;
+            }
 
             transaction.ToUserAfterBalance = transaction.ToUserInitialBalance + transaction.MoneyAmount;
-
         }
 
 

@@ -17,5 +17,7 @@ namespace BankSystem.Data
         public DbSet<BankSystem.Models.Account> Account { get; set; } = default!;
 
         public DbSet<BankSystem.Models.Transaction> Transaction { get; set; }
+
+        public DbSet<BankSystem.Models.Deposit> Deposit { get; set; }
     }
 }

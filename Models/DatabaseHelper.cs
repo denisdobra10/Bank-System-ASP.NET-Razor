@@ -190,5 +190,10 @@ namespace BankSystem.Models
         {
             return _context.Transaction.Where(a => a.FromUserCardNumber == cardNumber).ToList();
         }
+
+        public static List<Deposit> GetDepositsByCardNumber(BankSystemContext _context, string cardNumber)
+        {
+            return _context.Deposit.Where(a => a.account.CardNumber == cardNumber).ToList();
+        }
     }
 }

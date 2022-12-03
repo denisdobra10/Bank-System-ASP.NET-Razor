@@ -49,6 +49,28 @@ else if (Account.LoggedInAccount != null && String.IsNullOrEmpty(@HttpContext.Re
                 <input type="submit" value="Deposit" class="btn-lg btn-primary m-2 p-2" />
             </div>
         </form>
+
+        <table class="table mb-3">
+                <thead>
+                <tr>
+                    <th scope="col">Id.</th>
+                    <th scope="col">Suma</th>
+                    <th scope="col">Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var t in Model.deposits)
+                {
+                        <tr>
+                            <td>@t.Id</td>
+                            <td>@t.Amount @Account.Currency</td>
+                            <td>@t.Date.ToString("dd//MM//yyyy")</td>
+                        </tr>
+                }
+                </tbody>
+            </table>
+
+
     </div>
 </div>
 

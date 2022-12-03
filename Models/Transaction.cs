@@ -48,6 +48,7 @@ namespace BankSystem.Models
              * RECIEVER NAME DOESN'T MATCH THE CARD NUMBER = 104
              * TRANSFER SUMMARY IS TOO SHORT = 105
              * WRONG PIN = 106
+             * CAN'T TRANSFER MONEY TO THE SAME ACCOUNT = 107
              */
 
 
@@ -68,6 +69,9 @@ namespace BankSystem.Models
 
             if (DatabaseHelper.GetAccountByName(_context, transaction.FromUserName).Pin != pin)
                 return 106;
+
+            if (transaction.FromUserCardNumber.Equals(transaction.ToUserCardNumber))
+                return 107;
 
 
 
