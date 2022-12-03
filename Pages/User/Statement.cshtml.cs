@@ -14,6 +14,13 @@ namespace BankSystem.Pages.User
     {
         private readonly BankSystem.Data.BankSystemContext _context;
 
+        [BindProperty]
+        public Account account { get; set; }
+
+        public List<Transaction> Transactions { get; set; }
+        public List<Deposit> Deposits { get; set; }
+        public List<Withdraw> Withdrawals { get; set; }
+
         public StatementModel(BankSystem.Data.BankSystemContext context)
         {
             _context = context;
@@ -21,25 +28,16 @@ namespace BankSystem.Pages.User
 
         public IActionResult OnGet()
         {
+            account = Account.LoggedInAccount;
+
+            Transactions = DatabaseHelper.GetTransactionsByCardNumber(_context, account.CardNumber);
+            Deposits = DatabaseHelper.GetDepositsByCardNumber(_context, account.CardNumber);
+            Withdrawals = DatabaseHelper.GetWithdrawalsByCardNumber(_context, account.CardNumber);
+
             return Page();
         }
 
-        [BindProperty]
-        public Account Account { get; set; }
         
 
-        // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
-        public async Task<IActionResult> OnPostAsync()
-        {
-          if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Account.Add(Account);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
-        }
     }
 }

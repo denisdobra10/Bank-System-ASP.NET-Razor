@@ -141,7 +141,8 @@ namespace BankSystem.Models
         }
         public static Account GetAccountByUsername(BankSystemContext _context, string userName)
         {
-            return _context.Account.Where(a => a.Username.Equals(userName)).First();
+            var acc = _context.Account.Where(a => a.Username.Equals(userName));
+            return (acc.Count() == 0) ? null : acc.First();
             //return GetUserData(_context, userName).Result;
         }
 

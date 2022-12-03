@@ -1,0 +1,96 @@
+﻿@page
+@model BankSystem.Pages.User.ModifyModel
+
+@{
+    ViewData["Title"] = "Modify";
+}
+
+@if (@HttpContext.Request.Query["id"].Equals("success"))
+{
+    <div class="text-lg-center">
+        <h1 class="text-success">ACCOUNT INFORMATIONS SUCCESSFULLY UPDATED!</h1>
+    </div>
+
+    <a href="/User/Index" class="btn btn-primary m-3">I understand</a>
+}
+else
+{
+<h1>Modify</h1>
+
+<h4>Account</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="account.Id" />
+
+            <div class="form-group">
+                <label asp-for="account.Username" class="control-label" hidden></label>
+                <input asp-for="account.Username" class="form-control" value="@Model.account.Username" hidden/>
+                <span asp-validation-for="account.Username" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.Password" class="control-label" hidden></label>
+                <input asp-for="account.Password" class="form-control" value="@Model.account.Password" hidden/>
+                <span asp-validation-for="account.Password" class="text-danger"></span>
+            </div>
+         
+            <div class="form-group">
+                <label asp-for="account.Name" class="control-label"></label>
+                <input asp-for="account.Name" class="form-control" value="@Model.account.Name" required/>
+                <span asp-validation-for="account.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.Gender" class="control-label" hidden></label>
+                <input asp-for="account.Gender" class="form-control" value="@Model.account.Gender" hidden/>
+                <span asp-validation-for="account.Gender" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="account.SecretQuestion" class="control-label"></label>
+                <input asp-for="account.SecretQuestion" class="form-control" value="@Model.account.SecretQuestion" required/>
+                <span asp-validation-for="account.SecretQuestion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="account.Email" class="control-label"></label>
+                <input asp-for="account.Email" class="form-control" value="@Model.account.Email" required/>
+                <span asp-validation-for="account.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.CardNumber" class="control-label" hidden></label>
+                <input asp-for="account.CardNumber" class="form-control" value="@Model.account.CardNumber" hidden/>
+                <span asp-validation-for="account.CardNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.Pin" class="control-label"></label>
+                <input asp-for="account.Pin" class="form-control" value="@Model.account.Pin" required/>
+                <span asp-validation-for="account.Pin" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.Balance" class="control-label" hidden></label>
+                <input asp-for="account.Balance" class="form-control" value="@Model.account.Balance" hidden/>
+                <span asp-validation-for="account.Balance" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="account.AccountCreatedData" class="control-label" hidden></label>
+                <input asp-for="account.AccountCreatedData" class="form-control" value="@Model.account.AccountCreatedData" hidden/>
+                <span asp-validation-for="account.AccountCreatedData" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary m-3 p-3" />
+            </div>
+        </form>
+
+        <a href="/User/Index" class="btn btn-primary m-3 p-3">Back</a>
+    </div>
+</div>
+
+}

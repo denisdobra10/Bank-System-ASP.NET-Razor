@@ -1,79 +1,115 @@
 ﻿@page
 @model BankSystem.Pages.User.StatementModel
+@using BankSystem.Models
 
 @{
     ViewData["Title"] = "Statement";
 }
 
-<h1>Statement</h1>
 
-<h4>Account</h4>
+
+<h4>Statement</h4>
 <hr />
+
 <div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Account.Username" class="control-label"></label>
-                <input asp-for="Account.Username" class="form-control" />
-                <span asp-validation-for="Account.Username" class="text-danger"></span>
+    <div class="text-center">
+        <div class="card">
+            <div class="card-header">
+                <h2>Hello, @Account.LoggedInAccount.Name</h2>
             </div>
-            <div class="form-group">
-                <label asp-for="Account.Password" class="control-label"></label>
-                <input asp-for="Account.Password" class="form-control" />
-                <span asp-validation-for="Account.Password" class="text-danger"></span>
+
+            <div class="card-body">
+                
+                <div class="transactions">
+                    <h6>Transactions</h6>
+                    <hr />
+                    <table>
+                        <thead>
+                            <tr>
+                              <th scope="col">No.</th>
+                              <th scope="col">Sender</th>
+                              <th scope="col">Sender card number</th>
+                              <th scope="col">Reciever</th>
+                              <th scope="col">Reciever card number</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Summary</th>
+                              <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var t in Model.Transactions)
+                            {
+                            <tr>
+                                <td>@t.Id</td>
+                                <td>@t.FromUserName</td>
+                                <td>@t.FromUserCardNumber</td>
+                                <td>@t.ToUserName</td>
+                                <td>@t.ToUserCardNumber</td>
+                                <td>@t.MoneyAmount @Account.Currency</td>
+                                <td>@t.Details</td>
+                                <td>@t.Date.ToString("dd//MM//yyyy")</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+                <div class="deposits">
+                    <h6>Deposits</h6>
+                    <hr />
+                    <table>
+                        <thead>
+                            <tr>
+                              <th scope="col">Id.</th>
+                              <th scope="col">Suma</th>
+                              <th scope="col">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var d in Model.Deposits)
+                            {
+                            <tr>
+                                <td>@d.Id</td>
+                                <td>@d.Amount</td>
+                                <td>@d.Date</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                </div>
+
+                <div class="withdrawals">
+                    <h6>Withdrawals</h6>
+                    <hr />
+                    <table>
+                        <thead>
+                            <tr>
+                              <th scope="col">Id.</th>
+                              <th scope="col">Suma</th>
+                              <th scope="col">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var w in Model.Withdrawals)
+                            {
+                            <tr>
+                                <td>@w.Id</td>
+                                <td>@w.Amount</td>
+                                <td>@w.Date</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                </div>
+
             </div>
-            <div class="form-group">
-                <label asp-for="Account.Name" class="control-label"></label>
-                <input asp-for="Account.Name" class="form-control" />
-                <span asp-validation-for="Account.Name" class="text-danger"></span>
+
+            <div class="card-footer">
+                <a href="/User/Index" class="btn-lg btn-primary m-3">Back</a>
             </div>
-            <div class="form-group">
-                <label asp-for="Account.Gender" class="control-label"></label>
-                <input asp-for="Account.Gender" class="form-control" />
-                <span asp-validation-for="Account.Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.SecretQuestion" class="control-label"></label>
-                <input asp-for="Account.SecretQuestion" class="form-control" />
-                <span asp-validation-for="Account.SecretQuestion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Email" class="control-label"></label>
-                <input asp-for="Account.Email" class="form-control" />
-                <span asp-validation-for="Account.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.CardNumber" class="control-label"></label>
-                <input asp-for="Account.CardNumber" class="form-control" />
-                <span asp-validation-for="Account.CardNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Pin" class="control-label"></label>
-                <input asp-for="Account.Pin" class="form-control" />
-                <span asp-validation-for="Account.Pin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.Balance" class="control-label"></label>
-                <input asp-for="Account.Balance" class="form-control" />
-                <span asp-validation-for="Account.Balance" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Account.AccountCreatedData" class="control-label"></label>
-                <input asp-for="Account.AccountCreatedData" class="form-control" />
-                <span asp-validation-for="Account.AccountCreatedData" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

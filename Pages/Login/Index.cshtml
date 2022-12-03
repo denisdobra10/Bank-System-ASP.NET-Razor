@@ -8,12 +8,9 @@
 
 <h1>Login</h1>
 
-@if(Account.LoggedInAccount != null)
+@if (Account.LoggedInAccount.Id == Account.AdministratorID)
 {
-    <p>@Account.LoggedInAccount.Username YOU ARE LOGGED IN!!!</p>
-}
-
-<p>
+    <p>
     <a asp-page="Create">Create New</a>
 </p>
 <table class="table">
@@ -95,3 +92,9 @@
 }
     </tbody>
 </table>
+
+}
+else
+{
+    <p>PERMISSION DENIED</p>
+}

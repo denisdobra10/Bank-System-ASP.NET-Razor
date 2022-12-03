@@ -1,0 +1,21 @@
+﻿@page
+@model BankSystem.Pages.User.LogoutModel
+@using BankSystem.Models
+@{
+    ViewData["Title"] = "Log out";
+}
+
+@if (Account.LoggedInAccount == null)
+{
+    // Display error message
+    <p>Please <a href="/Login/SignIn">login</a> first!</p>
+}
+else
+{
+    <form method="post">
+        <h1 class="text-warning"><b>Are you sure you want to log out?</b></h1>
+        <button type="submit" class="btn-group-lg btn-primary m-3 p-3">Sign out</button>
+    </form>
+
+    <a href="/User/Index" class="btn btn-primary m-3 p-3">Back</a>
+}

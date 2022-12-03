@@ -30,5 +30,16 @@
 
         // END SIGN UP ACCOUNT ERRORS
 
+
+        // RESET PASSWORD ERRORS
+
+        public static Dictionary<int, string> resetPassErrors = new Dictionary<int, string>()
+        {
+            {301, "ENTERED USERNAME DOESN'T EXIST" },
+            {302, "WRONG SECURITY ANSWER" },
+            {303, "CONFIRMATION PASSWORD WAS NOT THE SAME WITH THE NEW PASSWORD" }
+        };
+
+        // END RESET PASSWORD ERRORS
     }
 }

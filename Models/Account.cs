@@ -8,6 +8,8 @@ namespace BankSystem.Models
 
         public static string Currency = "$";
 
+        public static int AdministratorID = 7;
+
 
 
         public int Id { get; set; }
